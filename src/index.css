@@ -1,6 +1,6 @@
 body {
   margin: 2rem;
-  background-color: #263238;
+  background-color: #212121;
   color: #eceff1;
 }
 
@@ -16,19 +16,19 @@ ol, ul {
 
 .status {
   margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 .square {
-  height: 5rem;
-  width: 5rem;
-  background: #607d8b;
+  height: 4.75rem;
+  width: 4.75rem;
+  background: #616161;
   color: #eceff1;
   border: none;
   margin: 0.25rem;
   padding: 0;
   line-height: 4rem;
-  font-size: 3rem;
+  font-size: 2.75rem;
   float: left;
 }
 
@@ -56,6 +56,11 @@ ol, ul {
 .center-parent {
   margin: auto;
 }
+
+.X-text { color: #ff5252 }
+.X-bg { background-color: #ff5252 }
+.O-text { color: #536dfe }
+.O-bg { background-color: #536dfe }
 
 #errors {
   background: #c00;

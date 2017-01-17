@@ -2,24 +2,51 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-  render() {
-    return (
-      <button className="square">
-        {/* TODO */}
-      </button>
-    );
-  }
+function Square(props) {    // stateless functional component
+  return (
+    <button className={'square ' + props.value + '-bg'} onClick={() => props.onClick()}>
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
-  renderSquare(i) {
-    return <Square />;
+  constructor() {
+    super();
+    this.state = {
+      squares: Array(9).fill(null),
+      xIsNext: true,
+    };
   }
+
+  renderSquare(i) {
+    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} />;
+  }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext,
+    });
+  }
+
   render() {
-    const status = <p><b>X</b>&#39;s turn</p>;
+    const winner = calculateWinner(this.state.squares);
+    let status;
+    if (winner) {
+      status = <p><b className={winner + '-text'}>{winner}</b> wins!</p>;
+    }
+    else {
+      const player = this.state.xIsNext ? 'X' : 'O';
+      status = <p><b className={player + '-text'}>{player}</b>'s turn ...</p>;
+    }
     return (
-      <div>
+      <div className="center-parent">
         <div className="status">{status}</div>
         <div className="board-row">
           {this.renderSquare(0)}
@@ -44,11 +71,11 @@ class Board extends React.Component {
 class Game extends React.Component {
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
+      <div className="game row">
+        <div className="game-board col-sm-12 col-md-8 col-lg-6">
           <Board />
         </div>
-        <div className="game-info">
+        <div className="game-info col-sm-12 col-md-4 col-lg-6">
           <div>{/* status */}</div>
           <ol>{/* TODO */}</ol>
         </div>
